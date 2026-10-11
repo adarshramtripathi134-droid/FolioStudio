@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A clean, editable portfolio starter. Personalize the name, course, skills, projects, and contact links.">
+<title>FolioStudio — Editable Portfolio Starter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8f1;--surface:#fffef9;--ink:#183c32;--muted:#64756c;--line:#dfe7da;--green:#216e52;--green-deep:#154735;--lime:#d8f178;--lime-soft:#eff8c9;--yellow:#f2d76a;--peach:#ffe6d8;--blue:#dceee9;--shadow:0 20px 60px rgba(38,75,56,.10);--radius:26px;--font-head:'Manrope',sans-serif;--font-body:'DM Sans',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.55;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(rgba(35,94,68,.075) .8px,transparent .8px);background-size:19px 19px;mask-image:linear-gradient(to bottom,black,transparent 78%)}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}img{max-width:100%;display:block}::selection{background:var(--lime);color:var(--green-deep)}
+/* Editor shell */
+.studio-bar{position:sticky;top:0;z-index:100;background:rgba(255,254,249,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(209,223,208,.82)}.studio-inner{max-width:1240px;margin:auto;padding:12px 22px;display:flex;align-items:center;gap:15px}.studio-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:800;letter-spacing:-.04em;white-space:nowrap}.brand-mark{height:34px;width:34px;border-radius:12px;display:grid;place-items:center;background:var(--lime);color:var(--green-deep);font-weight:900;box-shadow:inset 0 0 0 1px rgba(24,60,50,.06)}.studio-caption{color:var(--muted);font-size:12px;margin-left:2px;font-weight:500}.studio-actions{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.tool-btn,.tool-select{border:1px solid var(--line);background:#fffef9;color:var(--ink);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:700;transition:.22s ease;display:inline-flex;gap:7px;align-items:center;justify-content:center}.tool-btn:hover,.tool-select:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(38,75,56,.08);border-color:#b9cdb9}.tool-btn.primary{background:var(--green);border-color:var(--green);color:white}.tool-btn.primary.active{background:var(--lime);border-color:var(--lime);color:var(--green-deep)}.tool-btn.warning{color:#9b5136}.tool-select{padding:8px 10px;max-width:150px}.save-state{font-size:11px;color:var(--muted);min-width:72px;text-align:right}.mobile-note{display:none}
+/* Main website */
+#portfolio{max-width:1240px;margin:0 auto;padding:0 22px 65px}.site-nav{height:88px;display:flex;align-items:center;justify-content:space-between;gap:20px}.site-logo{font-family:var(--font-head);font-size:18px;font-weight:800;letter-spacing:-.055em;display:flex;align-items:center;gap:8px}.site-logo .dot{height:9px;width:9px;background:var(--green);border-radius:50%;box-shadow:0 0 0 5px rgba(216,241,120,.55)}.nav-links{display:flex;align-items:center;gap:27px;font-size:12px;font-weight:700;color:#63766b}.nav-links a{transition:color .2s}.nav-links a:hover{color:var(--green)}.nav-cta{padding:11px 16px;border-radius:13px;background:var(--green);color:#fff;font-size:12px;font-weight:700;transition:.25s;box-shadow:0 6px 0 rgba(21,71,53,.08)}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(21,71,53,.17)}
+.hero{position:relative;isolation:isolate;display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:35px;padding:44px 6.5% 72px;min-height:530px;background:var(--surface);border:1px solid rgba(211,225,210,.85);border-radius:34px;overflow:hidden;box-shadow:var(--shadow)}.hero:before{content:"";position:absolute;top:-175px;right:-130px;width:470px;height:470px;background:var(--lime-soft);border-radius:50%;z-index:-2;animation:blob 16s ease-in-out infinite alternate}.hero:after{content:"";position:absolute;bottom:-150px;right:24%;width:280px;height:280px;background:var(--peach);opacity:.7;border-radius:50%;z-index:-2;animation:blob 13s ease-in-out infinite alternate-reverse}.hero-copy{position:relative;z-index:2;animation:rise .85s both}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid #d9e4c7;background:#fbffec;color:#456445;border-radius:50px;padding:8px 12px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.eyebrow .pulse{height:7px;width:7px;border-radius:50%;background:#52a879;box-shadow:0 0 0 4px rgba(82,168,121,.13);animation:pulse 2s infinite}.hero h1{font-family:var(--font-head);font-size:clamp(42px,5.8vw,76px);line-height:1.02;letter-spacing:-.075em;margin:24px 0 18px;max-width:650px;font-weight:800}.hero h1 .highlight{display:inline-block;position:relative;color:var(--green)}.hero h1 .highlight:after{content:"";position:absolute;z-index:-1;left:0;right:-3px;bottom:4px;height:14px;border-radius:5px;background:var(--lime);transform:rotate(-1.5deg)}.hero-copy>p{max-width:520px;color:var(--muted);font-size:15px;line-height:1.85;margin:0}.hero-ctas{display:flex;gap:11px;flex-wrap:wrap;margin-top:27px}.btn-main,.btn-soft{min-height:46px;border:0;border-radius:14px;padding:0 17px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:12px;transition:transform .25s,box-shadow .25s}.btn-main{background:var(--green);color:#fff;box-shadow:0 7px 0 rgba(21,71,53,.09)}.btn-main:hover{transform:translateY(-3px);box-shadow:0 13px 24px rgba(21,71,53,.16)}.btn-soft{background:#f0f5e8;color:var(--green);border:1px solid #dfe8d4}.btn-soft:hover{transform:translateY(-3px)}.hero-meta{display:flex;gap:21px;margin-top:31px;flex-wrap:wrap}.hero-meta div{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;font-weight:700}.hero-meta b{color:var(--green);font-size:15px}.hero-art{min-height:370px;position:relative;display:grid;place-items:center;animation:rise .9s .12s both}.orbit{position:absolute;width:min(100%,370px);aspect-ratio:1;border:1px dashed rgba(55,116,83,.27);border-radius:50%;animation:spin 36s linear infinite}.orbit:before,.orbit:after{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:var(--yellow);box-shadow:0 4px 12px rgba(120,105,25,.17)}.orbit:before{top:27px;left:61px}.orbit:after{bottom:36px;right:38px;background:#9fd6bb}.portrait-card{position:relative;z-index:2;width:min(78%,280px);aspect-ratio:.82;background:linear-gradient(145deg,#d8f178,#fff0b3 53%,#e3f2dc);border-radius:45% 45% 28px 28px;box-shadow:0 30px 65px rgba(32,90,59,.17);overflow:hidden;transform:rotate(2.5deg);transition:transform .5s}.portrait-card:hover{transform:rotate(0) translateY(-5px)}.portrait-card img{width:100%;height:100%;object-fit:cover}.portrait-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--green-deep);background:linear-gradient(150deg,#e5f3c1,#d5eddf 66%,#ffe6b7)}.avatar-monogram{width:120px;height:120px;border-radius:40px;border:1px solid rgba(26,91,61,.13);background:rgba(255,255,255,.45);display:grid;place-items:center;font-family:var(--font-head);font-size:45px;font-weight:800;letter-spacing:-.08em;box-shadow:0 13px 28px rgba(21,71,53,.08);transform:rotate(-6deg)}.portrait-fallback small{font-size:10px;letter-spacing:.18em;font-weight:800;text-transform:uppercase}.float-card{position:absolute;z-index:5;display:flex;align-items:center;gap:10px;background:rgba(255,255,250,.93);backdrop-filter:blur(12px);border:1px solid rgba(213,226,210,.9);box-shadow:0 13px 34px rgba(30,76,54,.12);padding:11px 14px;border-radius:17px;animation:float 5s ease-in-out infinite}.float-card svg{width:25px;height:25px}.float-card strong{display:block;font-size:11px}.float-card span{display:block;color:var(--muted);font-size:9px;margin-top:2px}.float-top{top:13%;right:-4%;animation-delay:-2s}.float-bottom{bottom:9%;left:-3%;animation-delay:-3.5s}.spark{position:absolute;color:#8aa943;font-size:24px;animation:twinkle 3s ease-in-out infinite}.spark.one{top:12%;left:10%}.spark.two{bottom:17%;right:7%;animation-delay:1s}
+/* Sections */
+.section{padding:82px 0 0;animation:rise .75s both}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:26px}.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--green);font-weight:900;display:flex;align-items:center;gap:9px}.kicker:before{content:"";height:2px;width:20px;border-radius:5px;background:var(--yellow)}.section h2{font-family:var(--font-head);font-size:clamp(29px,3.5vw,43px);letter-spacing:-.065em;line-height:1.12;margin:9px 0 0}.section-heading>p{max-width:365px;color:var(--muted);font-size:12px;line-height:1.85;margin:0}.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:17px}.about-note{background:var(--green);color:#fff;border-radius:var(--radius);padding:30px;position:relative;overflow:hidden;min-height:245px}.about-note:after{content:"✳";position:absolute;right:-6px;bottom:-58px;font-size:175px;line-height:1;color:rgba(216,241,120,.17);transform:rotate(-12deg)}.about-note .mini-tag{font-size:10px;color:var(--lime);font-weight:800;letter-spacing:.13em;text-transform:uppercase}.about-note h3{font-family:var(--font-head);font-size:29px;line-height:1.15;letter-spacing:-.05em;max-width:320px;margin:21px 0 12px;position:relative;z-index:1}.about-note p{max-width:310px;font-size:12px;color:#d7e9df;position:relative;z-index:1}.about-details{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.detail-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;transition:transform .25s,box-shadow .25s}.detail-card:hover{transform:translateY(-4px);box-shadow:0 13px 30px rgba(33,90,61,.07)}.detail-icon{width:39px;height:39px;border-radius:13px;background:var(--lime-soft);color:var(--green);display:grid;place-items:center;font-size:18px}.detail-card:nth-child(2) .detail-icon{background:#ffedc5}.detail-card:nth-child(3) .detail-icon{background:#e2f0e9}.detail-card:nth-child(4) .detail-icon{background:#fbe4d9}.detail-card h3{font-family:var(--font-head);font-size:15px;margin:13px 0 6px;letter-spacing:-.03em}.detail-card p{font-size:11px;line-height:1.75;color:var(--muted);margin:0}
+.skills-panel{border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);padding:29px;display:grid;grid-template-columns:1fr 1fr;gap:30px}.skills-copy h3{font-family:var(--font-head);font-size:22px;line-height:1.25;letter-spacing:-.05em;margin:0 0 11px}.skills-copy p{font-size:12px;color:var(--muted);line-height:1.8;margin:0;max-width:390px}.skill-list{display:flex;flex-wrap:wrap;gap:9px;align-content:center}.skill-pill{border:1px solid #dbe8d6;background:#f9fff0;border-radius:12px;padding:10px 13px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:11px;transition:transform .2s,background .2s}.skill-pill:before{content:"";height:6px;width:6px;background:var(--green);border-radius:50%}.skill-pill:nth-child(3n){background:#fff7dc;border-color:#f0e6ba}.skill-pill:nth-child(3n):before{background:#c2a42c}.skill-pill:hover{transform:translateY(-3px) rotate(-1deg)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.project-card{background:var(--surface);border:1px solid var(--line);border-radius:23px;overflow:hidden;transition:transform .28s,box-shadow .28s;position:relative}.project-card:hover{transform:translateY(-6px);box-shadow:0 18px 35px rgba(33,90,61,.1)}.project-cover{height:170px;position:relative;overflow:hidden;background:#e8f2dd}.project-cover img{width:100%;height:100%;object-fit:cover;transition:transform .55s}.project-card:hover .project-cover img{transform:scale(1.04)}.project-number{position:absolute;top:12px;left:12px;background:rgba(255,255,247,.86);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);border-radius:9px;padding:6px 9px;font-size:9px;font-weight:900;color:var(--green)}.project-body{padding:20px}.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}.project-tags span{font-size:9px;color:#4f6f5c;background:#edf5e5;border-radius:7px;padding:5px 7px;font-weight:800}.project-body h3{font-family:var(--font-head);font-size:18px;line-height:1.25;letter-spacing:-.04em;margin:0 0 9px}.project-body p{font-size:11px;color:var(--muted);line-height:1.8;margin:0;min-height:58px}.project-foot{display:flex;align-items:center;justify-content:space-between;margin-top:17px;padding-top:13px;border-top:1px solid #e8eee3;color:var(--green);font-size:10px;font-weight:800}.project-foot .arrow{width:27px;height:27px;border-radius:9px;background:var(--lime-soft);display:grid;place-items:center;transition:transform .2s}.project-card:hover .arrow{transform:translate(2px,-2px)}
+.journey{display:grid;grid-template-columns:1fr 1fr;gap:17px}.journey-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:27px}.journey-title{display:flex;align-items:center;gap:10px;margin-bottom:21px}.journey-title .badge-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:var(--lime-soft);font-size:19px}.journey-title h3{font-family:var(--font-head);font-size:18px;letter-spacing:-.04em;margin:0}.timeline-item{padding:0 0 22px 20px;border-left:1px solid #d5e3d0;margin-left:8px;position:relative}.timeline-item:last-child{padding-bottom:0;border-left-color:transparent}.timeline-item:before{content:"";position:absolute;left:-5px;top:4px;width:9px;height:9px;border-radius:50%;background:var(--yellow);border:2px solid #fff;box-shadow:0 0 0 1px #e6e8cd}.timeline-item .time{font-size:9px;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:var(--green)}.timeline-item h4{font-size:13px;margin:5px 0 4px;font-weight:800}.timeline-item p{font-size:11px;color:var(--muted);margin:0;line-height:1.75}.cert-list{display:flex;flex-direction:column;gap:12px}.cert-row{display:flex;gap:12px;align-items:flex-start;padding:12px;background:#fafcf6;border:1px solid #e8eee3;border-radius:14px}.cert-symbol{flex:0 0 34px;height:34px;border-radius:11px;background:#fff1c7;display:grid;place-items:center;color:#816a1c;font-size:13px;font-weight:900}.cert-row:nth-child(2) .cert-symbol{background:#e2f0e9;color:#287251}.cert-row:nth-child(3) .cert-symbol{background:#fbe4d9;color:#a25735}.cert-row strong{font-size:11px;display:block;margin:1px 0 3px}.cert-row span{font-size:10px;color:var(--muted);display:block;line-height:1.6}
+.contact-box{position:relative;overflow:hidden;background:var(--lime);border-radius:30px;padding:42px 44px;display:flex;align-items:center;justify-content:space-between;gap:25px}.contact-box:after{content:"✳";position:absolute;right:23%;top:-60px;font-size:200px;color:rgba(255,255,255,.3);line-height:1;animation:spin 45s linear infinite;pointer-events:none}.contact-copy{position:relative;z-index:1}.contact-copy .kicker{color:#41613a}.contact-copy h2{font-family:var(--font-head);font-size:clamp(31px,4vw,48px);line-height:1.05;letter-spacing:-.07em;max-width:600px;margin:13px 0}.contact-copy p{font-size:12px;color:#4f6847;margin:0;max-width:470px;line-height:1.8}.contact-actions{position:relative;z-index:2;display:flex;flex-direction:column;gap:10px;min-width:155px}.contact-actions .btn-main{background:var(--green-deep)}.contact-actions .btn-soft{background:rgba(255,255,255,.55);border-color:rgba(30,78,48,.12)}.footer{padding:27px 2px 5px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--muted);font-size:10px}.footer strong{font-family:var(--font-head);color:var(--green);font-size:12px}.social-links{display:flex;gap:14px;font-weight:700}.social-links a:hover{color:var(--green)}
+/* Editable state */
+body.editing [data-editable]{outline:1px dashed rgba(33,110,82,.43);outline-offset:4px;border-radius:3px;cursor:text;transition:outline-color .2s,background .2s}body.editing [data-editable]:hover{outline:2px solid var(--green);background:rgba(216,241,120,.12)}body.editing [data-uploadable]{cursor:pointer;outline:2px dashed rgba(33,110,82,.6);outline-offset:-5px}body.editing [data-uploadable]:hover{filter:saturate(1.1);opacity:.84}body.editing [data-uploadable]:after{content:"Click to change image"}body.editing a{cursor:text}body.editing .nav-links a{pointer-events:none}.edit-hint{display:none;margin:0 auto 15px;border:1px solid #dbe8d4;background:#fbffef;border-radius:12px;max-width:1240px;padding:10px 14px;font-size:11px;color:#52674f}.edit-hint strong{color:var(--green)}body.editing .edit-hint{display:block}.edit-controls{display:none;gap:6px;align-items:center;flex-wrap:wrap}.editing .edit-controls{display:flex}.mini-edit-btn{border:1px solid #d8e4d1;background:#fffef8;color:var(--green);border-radius:8px;padding:5px 8px;font-size:10px;font-weight:800}.section-edit-row{position:relative}.section-controls{position:absolute;right:0;top:0;display:none;gap:5px;z-index:10}.editing .section-controls{display:flex}.section-controls button{border:1px solid var(--line);background:#fffef6;border-radius:8px;color:#8d5f49;padding:5px 8px;font-size:10px;font-weight:800}.project-card .card-controls{position:absolute;right:8px;top:8px;z-index:12;display:none}.editing .project-card .card-controls{display:flex;gap:5px}.card-controls button{border:1px solid #e5d7c8;background:#fffaf2;color:#9a5332;border-radius:8px;padding:5px 8px;font-size:10px;font-weight:800}.hidden-section{opacity:.38;filter:grayscale(.75)}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:200;background:var(--green-deep);color:#fff;padding:12px 16px;border-radius:13px;box-shadow:var(--shadow);font-size:12px;font-weight:700;transition:.28s}.toast.show{opacity:1;transform:translate(-50%,0)}
+/* Animations */
+.reveal{opacity:0;transform:translateY(19px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.25,1)}.reveal.visible{opacity:1;transform:translateY(0)}@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(82,168,121,.13)}50%{box-shadow:0 0 0 7px rgba(82,168,121,.03)}}@keyframes blob{from{transform:translate(0,0) scale(1)}to{transform:translate(-16px,18px) scale(1.08)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}@keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:.7}50%{transform:scale(1.3) rotate(22deg);opacity:1}}
+/* Alternate themes */
+body.theme-ocean{--bg:#f2f8f8;--surface:#fcffff;--ink:#173d48;--muted:#60767b;--line:#d8e8e8;--green:#286c7c;--green-deep:#174c58;--lime:#b9ece2;--lime-soft:#def7f0;--yellow:#f5d782;--peach:#e4efff;--blue:#dceee9}body.theme-lilac{--bg:#f8f6fb;--surface:#fffefe;--ink:#332b4b;--muted:#777088;--line:#e8e0ee;--green:#66518b;--green-deep:#49386d;--lime:#e4d5ff;--lime-soft:#f0e8ff;--yellow:#ffe2a6;--peach:#ffe6eb;--blue:#e7e0f6}body.theme-sunrise{--bg:#fff8f1;--surface:#fffefa;--ink:#523529;--muted:#8b7164;--line:#f0dfd3;--green:#a75b3f;--green-deep:#743b2a;--lime:#ffd5b7;--lime-soft:#ffeddf;--yellow:#f8de81;--peach:#ffdfd4;--blue:#e6f0df}
+@media(max-width:950px){.hero{padding:42px 5%;grid-template-columns:1fr .75fr;gap:10px}.hero h1{font-size:clamp(39px,6vw,63px)}.hero-art{min-height:315px}.orbit{width:290px}.float-top{right:-2%}.float-bottom{left:-1%}.projects-grid{grid-template-columns:repeat(2,1fr)}.project-card:last-child{grid-column:span 2;display:grid;grid-template-columns:.8fr 1fr}.project-card:last-child .project-cover{height:100%;min-height:215px}.nav-links{gap:15px}.studio-caption{display:none}}
+@media(max-width:680px){.studio-inner{padding:10px 13px;gap:8px;flex-wrap:wrap}.studio-brand{font-size:14px}.brand-mark{width:30px;height:30px}.studio-actions{gap:5px}.tool-btn,.tool-select{padding:8px 9px;font-size:11px}.save-state{display:none}.mobile-note{display:block;width:100%;font-size:10px;color:var(--muted);margin-left:38px;margin-top:-7px}.studio-actions .tool-select{max-width:112px}.site-nav{height:72px}.nav-links{display:none}.nav-cta{padding:10px 12px}.site-logo{font-size:16px}#portfolio{padding:0 13px 35px}.hero{grid-template-columns:1fr;padding:35px 24px 27px;gap:5px;border-radius:27px;min-height:unset}.hero h1{font-size:clamp(43px,11vw,65px);margin:20px 0 15px}.hero-copy>p{font-size:13px}.hero-meta{margin-top:21px;gap:12px}.hero-art{min-height:310px;margin-top:4px}.orbit{width:280px}.portrait-card{width:218px;max-width:67%;height:265px}.float-card{padding:9px 10px}.float-top{top:11%;right:0}.float-bottom{bottom:8%;left:0}.section{padding-top:58px}.section-heading{display:block;margin-bottom:19px}.section-heading>p{margin-top:12px}.about-grid,.skills-panel,.journey{grid-template-columns:1fr}.about-note{min-height:220px}.about-details{gap:9px}.detail-card{padding:17px}.skills-panel{padding:22px;gap:21px}.projects-grid{grid-template-columns:1fr}.project-card:last-child{grid-column:auto;display:block}.project-card:last-child .project-cover{height:170px;min-height:unset}.project-body p{min-height:unset}.journey-card{padding:22px}.contact-box{padding:30px 24px;display:block;border-radius:25px}.contact-actions{margin-top:23px;flex-direction:row;flex-wrap:wrap}.contact-actions>*{flex:1}.contact-box:after{right:-10%;top:-30px}.footer{align-items:flex-start;flex-direction:column;padding-top:23px}.social-links{flex-wrap:wrap}.edit-controls{width:100%}.section-controls{position:static;margin-bottom:10px}body.editing .section-heading{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="studio-bar" data-editor-only>
+  <div class="studio-inner">
+    <div class="studio-brand"><span class="brand-mark">F.</span><span>Folio<span style="color:var(--green);">Studio</span><span class="studio-caption">PERSONAL PORTFOLIO BUILDER</span></span></div>
+    <div class="studio-actions">
+      <span class="save-state" id="saveState">● Ready</span>
+      <button class="tool-btn primary" id="editToggle" type="button">✎ Edit portfolio</button>
+      <div class="edit-controls" id="editTools">
+        <select class="tool-select" id="themeSelect" aria-label="Choose theme"><option value="mint">Mint + Sun</option><option value="ocean">Ocean Air</option><option value="lilac">Soft Lilac</option><option value="sunrise">Peach Sunrise</option></select>
+        <button class="tool-btn" id="addProject" type="button">＋ Project</button>
+        <button class="tool-btn" id="addSection" type="button">＋ Section</button>
+        <button class="tool-btn" id="editLinks" type="button">↗ Edit links</button>
+        <button class="tool-btn" id="saveJson" type="button">⇩ Backup</button>
+      </div>
+      <button class="tool-btn" id="exportSite" type="button">↗ Export site</button>
+    </div>
+    <div class="mobile-note" data-editor-only>Tap “Edit portfolio” to change text and images. Your changes save in this browser.</div>
+  </div>
+</header>
+<div class="edit-hint" data-editor-only><strong>Edit mode is on.</strong> Click any outlined text to replace prompts like “Enter your name” or “Enter your course name”. Click the portrait or a project cover to upload an image. Changes save automatically in this browser.</div>
+<input type="file" id="imagePicker" accept="image/*" hidden>
+<main id="portfolio">
+  <nav class="site-nav">
+    <a href="#home" class="site-logo"><span class="dot"></span><span data-editable>Your Name.</span></a>
+    <div class="nav-links"><a href="#about"><span data-editable>About</span></a><a href="#skills"><span data-editable>Skills</span></a><a href="#projects"><span data-editable>Projects</span></a><a href="#journey"><span data-editable>Journey</span></a></div>
+    <a class="nav-cta" href="#contact"><span data-editable>Let’s connect ↗</span></a>
+  </nav>
+  <section class="hero" id="home">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="pulse"></span><span data-editable>Enter your personal tagline.</span></div>
+      <h1 data-editable>Hello, I’m<br><span class="highlight">Enter your name.</span></h1>
+      <p data-editable>Write a short introduction about yourself, your course, and what you enjoy learning or doing.</p>
+      <div class="hero-ctas"><a class="btn-main" href="#projects"><span data-editable>Explore my work</span> <span aria-hidden="true">↗</span></a><a class="btn-soft" href="#contact"><span data-editable>Say hello</span> <span aria-hidden="true">☺</span></a></div>
+      <div class="hero-meta"><div><b>✳</b><span data-editable>Enter your course</span></div><div><b>⌘</b><span data-editable>Add your main skill</span></div><div><b>↗</b><span data-editable>Always learning</span></div></div>
+    </div>
+    <div class="hero-art" aria-label="Editable profile image">
+      <div class="orbit"></div><span class="spark one">✳</span><span class="spark two">✦</span>
+      <div class="portrait-card" data-uploadable data-image-name="profile photo" role="button" tabindex="0" aria-label="Change profile photo">
+        <div class="portrait-fallback" id="portraitFallback"><div class="avatar-monogram">YN</div><small>YOUR PHOTO GOES HERE</small></div>
+        <img id="profileImage" alt="Your profile photo" hidden>
+      </div>
+      <div class="float-card float-top"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="8" fill="#e6f4c7"/><path d="m11 12-4 4 4 4M21 12l4 4-4 4M18 10l-4 12" stroke="#216e52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong data-editable>Add your specialty</strong><span data-editable>Write a short note</span></div></div>
+      <div class="float-card float-bottom"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fff0bf"/><path d="M16 6v10l7 4" stroke="#8a7121" stroke-width="2.3" stroke-linecap="round"/><path d="M8 23c2 2 5 3 8 3" stroke="#8a7121" stroke-width="2" stroke-linecap="round"/></svg><div><strong data-editable>Your learning journey</strong><span data-editable>One step at a time</span></div></div>
+    </div>
+  </section>
+  <section class="section section-edit-row reveal" id="about">
+    <div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div>
+    <div class="section-heading"><div><div class="kicker" data-editable>About me</div><h2 data-editable>Tell people<br>about yourself.</h2></div><p data-editable>Write 2–3 lines about who you are, what you are learning, and what kind of work interests you.</p></div>
+    <div class="about-grid">
+      <div class="about-note"><div class="mini-tag" data-editable>Your introduction</div><h3 data-editable>Add your<br>personal motto.</h3><p data-editable>Write a short sentence about your goals, interests, or the way you like to work.</p></div>
+      <div class="about-details">
+        <article class="detail-card"><div class="detail-icon">⌘</div><h3 data-editable>Your strengths</h3><p data-editable>Describe a skill or quality you want people to know about.</p></article>
+        <article class="detail-card"><div class="detail-icon">✳</div><h3 data-editable>Your interests</h3><p data-editable>Write about a subject, technology, or field that interests you.</p></article>
+        <article class="detail-card"><div class="detail-icon">↗</div><h3 data-editable>Your goals</h3><p data-editable>Describe what you hope to learn, build, or achieve.</p></article>
+        <article class="detail-card"><div class="detail-icon">♡</div><h3 data-editable>Working with others</h3><p data-editable>Share how you like to collaborate, communicate, or contribute to a team.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="section section-edit-row reveal" id="skills">
+    <div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div>
+    <div class="section-heading"><div><div class="kicker" data-editable>My skills</div><h2 data-editable>Add your skills<br>and tools.</h2></div><p data-editable>Click each skill in Edit mode and replace it with a skill or tool you know or are currently learning.</p></div>
+    <div class="skills-panel"><div class="skills-copy"><h3 data-editable>Your skill snapshot</h3><p data-editable>Write a sentence about your strengths, technical skills, or the tools you are learning.</p></div><div class="skill-list"><span class="skill-pill" data-editable>Add skill 1</span><span class="skill-pill" data-editable>Add skill 2</span><span class="skill-pill" data-editable>Add skill 3</span><span class="skill-pill" data-editable>Add skill 4</span><span class="skill-pill" data-editable>Add skill 5</span><span class="skill-pill" data-editable>Add skill 6</span><span class="skill-pill" data-editable>Add skill 7</span><span class="skill-pill" data-editable>Add skill 8</span></div></div>
+  </section>
+  <section class="section section-edit-row reveal" id="projects">
+    <div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div>
+    <div class="section-heading"><div><div class="kicker" data-editable>My projects</div><h2 data-editable>Projects I have<br>worked on.</h2></div><p data-editable>Add your own projects here. In Edit mode, replace each project title, description, technology tags, and cover image.</p></div>
+    <div class="projects-grid" id="projectsGrid">
+      <article class="project-card"><div class="card-controls" data-editor-only><button type="button" data-remove-project>Remove</button></div><div class="project-cover" data-uploadable data-image-name="Project 1 cover image"><span class="project-number">01 / PROJECT</span><img alt="Project 1 cover" data-project-image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23d9f17e'/%3E%3Cstop offset='1' stop-color='%23e0f1e7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='700' height='400' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%233a805e' stroke-width='2' opacity='.38'%3E%3Cpath d='M0 80 Q180 15 300 115T700 80M0 300 Q180 225 330 320T700 260M60 0Q100 180 220 400M480 0Q430 200 590 400'/%3E%3C/g%3E%3Crect x='185' y='67' width='330' height='262' rx='20' fill='%23fffef7' stroke='%23c4d9b8'/%3E%3Cpath d='M225 112h120M225 135h78' stroke='%237f9b7b' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M238 255c-18-30 18-62 0-92m56 106c-18-37 23-52 3-91m59 92c-18-34 18-54 3-82' stroke='%2384b780' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M412 215c0-40 60-40 60 0 0 27-30 52-30 52s-30-25-30-52Z' fill='%23f2d76a' stroke='%233a805e' stroke-width='4'/%3E%3Ccircle cx='442' cy='213' r='9' fill='%233a805e'/%3E%3C/svg%3E"></div><div class="project-body"><div class="project-tags"><span data-editable>Add technology</span><span data-editable>Add another tool</span><span data-editable>Personal / team project</span></div><h3 data-editable>Enter project name</h3><p data-editable>Write what your project does, what you built, and which tools or technologies you used.</p><div class="project-foot"><span data-editable>Add project link or highlight</span><span class="arrow">↗</span></div></div></article>
+      <article class="project-card"><div class="card-controls" data-editor-only><button type="button" data-remove-project>Remove</button></div><div class="project-cover" data-uploadable data-image-name="Project 2 cover image"><span class="project-number">02 / PROJECT</span><img alt="Project 2 cover" data-project-image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23fff0b6'/%3E%3Cstop offset='1' stop-color='%23e4f2d3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='700' height='400' fill='url(%23g)'/%3E%3Ccircle cx='570' cy='75' r='38' fill='%23f4d66f'/%3E%3Cpath d='M0 270Q150 210 280 280T700 250V400H0Z' fill='%23bddda8'/%3E%3Cpath d='M0 320Q160 260 340 333T700 295V400H0Z' fill='%238fbd82'/%3E%3Cg stroke='%233b7853' stroke-width='10' stroke-linecap='round' fill='none'%3E%3Cpath d='M160 340V245m0 31q-45-55-69-28m69 7q28-55 61-42M300 346V232m0 42q-48-50-73-20m73 0q28-60 70-41M465 348V250m0 26q-39-47-62-24m62 6q30-50 65-33'/%3E%3C/g%3E%3Crect x='445' y='112' width='125' height='78' rx='14' fill='%23fffef7' stroke='%23d0dfbb' stroke-width='3'/%3E%3Cpath d='M466 164l20-21 20 9 24-23 19 7' fill='none' stroke='%235a9d6c' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"></div><div class="project-body"><div class="project-tags"><span data-editable>Add technology</span><span data-editable>Add project category</span></div><h3 data-editable>Enter project name</h3><p data-editable>Describe the problem your project solves and the part you worked on.</p><div class="project-foot"><span data-editable>Add project link or highlight</span><span class="arrow">↗</span></div></div></article>
+      <article class="project-card"><div class="card-controls" data-editor-only><button type="button" data-remove-project>Remove</button></div><div class="project-cover" data-uploadable data-image-name="Project 3 cover image"><span class="project-number">03 / PROJECT</span><img alt="Project 3 cover" data-project-image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23e0edf8'/%3E%3Cstop offset='1' stop-color='%23e4f4db'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='700' height='400' fill='url(%23g)'/%3E%3Ccircle cx='560' cy='82' r='42' fill='%23fff0bc'/%3E%3Cpath d='M0 300L700 230M0 343L700 273' stroke='%2380a9a0' stroke-width='5' opacity='.65'/%3E%3Crect x='140' y='98' width='430' height='202' rx='28' fill='%23fffef7' stroke='%2376a18c' stroke-width='4'/%3E%3Crect x='165' y='125' width='382' height='102' rx='14' fill='%23d5eadc'/%3E%3Cg fill='%23527f6e'%3E%3Crect x='183' y='145' width='70' height='58' rx='8'/%3E%3Crect x='266' y='145' width='70' height='58' rx='8'/%3E%3Crect x='349' y='145' width='70' height='58' rx='8'/%3E%3Crect x='432' y='145' width='96' height='58' rx='8'/%3E%3C/g%3E%3Cpath d='M165 255H545' stroke='%23a4c6a5' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='225' cy='301' r='21' fill='%233f6e5a'/%3E%3Ccircle cx='490' cy='301' r='21' fill='%233f6e5a'/%3E%3C/svg%3E"></div><div class="project-body"><div class="project-tags"><span data-editable>Add technology</span><span data-editable>Add project category</span></div><h3 data-editable>Enter project name</h3><p data-editable>Describe what you created, how it works, and what you learned by building it.</p><div class="project-foot"><span data-editable>Add project link or highlight</span><span class="arrow">↗</span></div></div></article>
+    </div>
+  </section>
+  <section class="section section-edit-row reveal" id="journey">
+    <div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div>
+    <div class="section-heading"><div><div class="kicker" data-editable>My journey</div><h2 data-editable>My learning journey.</h2></div><p data-editable>Add your education, experience, courses, and achievements. Replace each prompt with your own details.</p></div>
+    <div class="journey">
+      <div class="journey-card"><div class="journey-title"><span class="badge-icon">◷</span><h3 data-editable>Education & experience</h3></div>
+        <div class="timeline-item"><div class="time" data-editable>Enter start — end year</div><h4 data-editable>Enter your course name</h4><p data-editable>Enter your college or university name and a short note about what you are learning.</p></div>
+        <div class="timeline-item"><div class="time" data-editable>Enter duration</div><h4 data-editable>Enter your role and organization</h4><p data-editable>Describe your internship, job, volunteer work, or practical experience. Delete this item if it does not apply to you.</p></div>
+        <div class="timeline-item"><div class="time" data-editable>Enter year or date</div><h4 data-editable>Add an achievement or milestone</h4><p data-editable>Mention a competition, award, event, certification, or important learning milestone.</p></div>
+      </div>
+      <div class="journey-card"><div class="journey-title"><span class="badge-icon">✧</span><h3 data-editable>Courses & certificates</h3></div><div class="cert-list">
+        <div class="cert-row"><div class="cert-symbol">AI</div><div><strong data-editable>Enter course or certificate name</strong><span data-editable>Add the course provider, platform, or completion year.</span></div></div>
+        <div class="cert-row"><div class="cert-symbol">Py</div><div><strong data-editable>Enter another certificate</strong><span data-editable>Enter provider or completion year</span></div></div>
+        <div class="cert-row"><div class="cert-symbol">Git</div><div><strong data-editable>Add a skill course or certificate</strong><span data-editable>Enter provider or completion year</span></div></div>
+      </div></div>
+    </div>
+  </section>
+  <section class="section section-edit-row reveal" id="contact">
+    <div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div>
+    <div class="contact-box"><div class="contact-copy"><div class="kicker" data-editable>Get in touch</div><h2 data-editable>Let’s connect<br>and work together.</h2><p data-editable>Write a short message about the opportunities, collaborations, or connections you are interested in.</p></div><div class="contact-actions"><a class="btn-main" href="mailto:" id="emailLink"><span data-editable>Add your email</span><span>↗</span></a><a class="btn-soft" href="#home"><span data-editable>Back to top</span><span>↑</span></a></div></div>
+  </section>
+  <footer class="footer"><div>© <span id="year"></span> <strong data-editable>Your Name</strong><span data-editable> · Made with creativity and curiosity.</span></div><div class="social-links"><a href="#" target="_blank" rel="noreferrer" id="githubLink"><span data-editable>Add GitHub ↗</span></a><a href="#" target="_blank" rel="noreferrer" id="linkedinLink"><span data-editable>Add LinkedIn ↗</span></a></div></footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+  const portfolio = $('#portfolio');
+  const editToggle = $('#editToggle');
+  const editTools = $('#editTools');
+  const themeSelect = $('#themeSelect');
+  const imagePicker = $('#imagePicker');
+  const saveState = $('#saveState');
+  const toastEl = $('#toast');
+  let editing = false;
+  let uploadTarget = null;
+  let saveTimeout = null;
+  let toastTimeout = null;
+  let activeTheme = 'mint';
+  $('#year').textContent = new Date().getFullYear();
+
+  const showToast = (message) => {
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toastEl.classList.remove('show'), 2500);
+  };
+  const setSaveLabel = (label) => { saveState.textContent = '● ' + label; };
+
+  function applyTheme(theme) {
+    document.body.classList.remove('theme-ocean','theme-lilac','theme-sunrise');
+    if (theme !== 'mint') document.body.classList.add('theme-' + theme);
+    activeTheme = theme;
+    themeSelect.value = theme;
+    try { localStorage.setItem('folioStudioStarterThemeV1', theme); } catch(e) {}
+  }
+  function setEditing(state) {
+    editing = state;
+    document.body.classList.toggle('editing', editing);
+    editToggle.classList.toggle('active', editing);
+    editToggle.textContent = editing ? '✓ Finish editing' : '✎ Edit portfolio';
+    editTools.style.display = editing ? 'flex' : 'none';
+    $$('[data-editable]', portfolio).forEach(el => {
+      el.contentEditable = editing ? 'true' : 'false';
+      el.spellcheck = editing;
+    });
+    setSaveLabel(editing ? 'Editing' : 'Ready');
+    if (editing) showToast('Edit mode on — click any outlined text or image.');
+    else { savePortfolio(); showToast('Edit mode off. Your changes are saved.'); }
+  }
+
+  function savePortfolio() {
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      try {
+        localStorage.setItem('folioStudioStarterContentV1', portfolio.innerHTML);
+        localStorage.setItem('folioStudioStarterThemeV1', activeTheme);
+        setSaveLabel('Saved');
+      } catch (err) {
+        setSaveLabel('Local only');
+        console.warn('Could not save to localStorage', err);
+      }
+    }, 180);
+  }
+  function loadSaved() {
+    try {
+      const saved = localStorage.getItem('folioStudioStarterContentV1');
+      if (saved && saved.length < 4_500_000) portfolio.innerHTML = saved;
+      const theme = localStorage.getItem('folioStudioStarterThemeV1');
+      if (theme && ['mint','ocean','lilac','sunrise'].includes(theme)) applyTheme(theme);
+      // Reconnect the profile image fallback when a draft included an image.
+      const profile = $('#profileImage');
+      const fallback = $('#portraitFallback');
+      if (profile && profile.getAttribute('src') && !profile.hidden) fallback && (fallback.hidden = true);
+    } catch(e) { console.warn('Could not load saved portfolio', e); }
+  }
+
+  // Elegant scroll reveals; falls back to visible content where IntersectionObserver is unavailable.
+  const revealEls = $$('.reveal', portfolio);
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+    }), {threshold:.08});
+    revealEls.forEach(el => revealObserver.observe(el));
+  } else revealEls.forEach(el => el.classList.add('visible'));
+  setTimeout(() => $('.hero')?.classList.add('visible'), 80);
+
+  editToggle.addEventListener('click', () => setEditing(!editing));
+  themeSelect.addEventListener('change', e => { applyTheme(e.target.value); savePortfolio(); showToast('Theme updated.'); });
+  portfolio.addEventListener('input', e => {
+    if (editing && e.target.matches('[contenteditable="true"]')) { setSaveLabel('Saving…'); savePortfolio(); }
+  });
+  portfolio.addEventListener('click', e => {
+    const removeProject = e.target.closest('[data-remove-project]');
+    if (removeProject && editing) {
+      e.preventDefault(); e.stopPropagation();
+      const card = removeProject.closest('.project-card');
+      if (card && confirm('Remove this project card?')) { card.remove(); savePortfolio(); showToast('Project removed.'); }
+      return;
+    }
+    const hideSection = e.target.closest('[data-hide-section]');
+    if (hideSection && editing) {
+      e.preventDefault(); e.stopPropagation();
+      const section = hideSection.closest('.section-edit-row');
+      section.classList.toggle('hidden-section');
+      section.dataset.hidden = section.classList.contains('hidden-section') ? 'true' : 'false';
+      // Hidden sections stay visible in the editor but are hidden in the exported portfolio.
+      hideSection.textContent = section.dataset.hidden === 'true' ? 'Show section' : 'Hide section';
+      savePortfolio(); showToast(section.dataset.hidden === 'true' ? 'Section will be hidden on export.' : 'Section will be visible on export.');
+      return;
+    }
+    const removeSection = e.target.closest('[data-remove-section]');
+    if (removeSection && editing) {
+      e.preventDefault(); e.stopPropagation();
+      const section = removeSection.closest('.section-edit-row');
+      if (section && confirm('Remove this whole section?')) { section.remove(); savePortfolio(); showToast('Section removed.'); }
+      return;
+    }
+    const imageWrap = e.target.closest('[data-uploadable]');
+    if (imageWrap && editing) {
+      e.preventDefault();
+      uploadTarget = imageWrap;
+      imagePicker.value = '';
+      imagePicker.click();
+      return;
+    }
+    const link = e.target.closest('a');
+    if (editing && link) { e.preventDefault(); }
+  });
+  portfolio.addEventListener('keydown', e => {
+    const imageWrap = e.target.closest('[data-uploadable]');
+    if (editing && imageWrap && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); uploadTarget = imageWrap; imagePicker.click(); }
+  });
+
+  function compressImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => resolve(reader.result);
+        img.onload = () => {
+          const maxWidth = 1400, scale = Math.min(1, maxWidth / img.width);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale); canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', .84));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  imagePicker.addEventListener('change', async e => {
+    const file = e.target.files?.[0];
+    if (!file || !uploadTarget) return;
+    if (!file.type.startsWith('image/')) { showToast('Please select an image file.'); return; }
+    if (file.size > 12 * 1024 * 1024) { showToast('Please choose an image smaller than 12 MB.'); return; }
+    try {
+      setSaveLabel('Image…');
+      const dataUrl = await compressImage(file);
+      if (uploadTarget.classList.contains('portrait-card')) {
+        const img = $('#profileImage'); img.src = dataUrl; img.hidden = false;
+        const fallback = $('#portraitFallback'); if (fallback) fallback.hidden = true;
+      } else {
+        const img = $('img[data-project-image]', uploadTarget);
+        if (img) img.src = dataUrl;
+        else {
+          // Allow an image to be used on a newly added custom section cover.
+          uploadTarget.style.backgroundImage = `url("${dataUrl}")`;
+          uploadTarget.style.backgroundSize = 'cover'; uploadTarget.style.backgroundPosition = 'center';
+        }
+      }
+      savePortfolio(); showToast('Image updated!');
+    } catch (err) { console.error(err); showToast('Could not load that image.'); }
+    uploadTarget = null;
+  });
+
+  function makeProject(title, description, index) {
+    const card = document.createElement('article');
+    card.className = 'project-card';
+    card.innerHTML = `<div class="card-controls" data-editor-only><button type="button" data-remove-project>Remove</button></div><div class="project-cover" data-uploadable data-image-name="Project image"><span class="project-number">${String(index).padStart(2,'0')} / PROJECT</span><div class="new-project-art" aria-hidden="true" style="height:100%;display:grid;place-items:center;background:linear-gradient(145deg,var(--lime-soft),var(--peach));color:var(--green);font-size:50px">✳</div></div><div class="project-body"><div class="project-tags"><span data-editable>New project</span><span data-editable>Personal build</span></div><h3 data-editable>${escapeHtml(title)}</h3><p data-editable>${escapeHtml(description)}</p><div class="project-foot"><span data-editable>Add your project link</span><span class="arrow">↗</span></div></div>`;
+    return card;
+  }
+  function escapeHtml(str) { return String(str).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+
+  $('#editLinks').addEventListener('click', () => {
+    const emailEl = $('#emailLink');
+    const githubEl = $('#githubLink');
+    const linkedinEl = $('#linkedinLink');
+    const currentEmail = (emailEl.getAttribute('href') || '').replace(/^mailto:/, '').split('?')[0];
+    const email = prompt('Your contact email address:', currentEmail);
+    if (email === null) return;
+    const currentGithub = githubEl?.getAttribute('href');
+    const github = prompt('Your GitHub profile URL (leave blank if not ready):', currentGithub && currentGithub !== '#' ? currentGithub : '');
+    if (github === null) return;
+    const currentLinkedin = linkedinEl?.getAttribute('href');
+    const linkedin = prompt('Your LinkedIn profile URL (leave blank if not ready):', currentLinkedin && currentLinkedin !== '#' ? currentLinkedin : '');
+    if (linkedin === null) return;
+    const cleanEmail = email.trim();
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      showToast('Email format does not look valid. Links were not changed.');
+      return;
+    }
+    const validWebUrl = value => {
+      const text = (value || '').trim();
+      if (!text) return '#';
+      try { const u = new URL(text); return ['https:','http:'].includes(u.protocol) ? u.href : '#'; }
+      catch(e) { return '#'; }
+    };
+    emailEl.href = cleanEmail ? 'mailto:' + cleanEmail : 'mailto:';
+    if (githubEl) githubEl.href = validWebUrl(github);
+    if (linkedinEl) linkedinEl.href = validWebUrl(linkedin);
+    savePortfolio();
+    showToast('Contact links updated.');
+  });
+
+  $('#addProject').addEventListener('click', () => {
+    const title = prompt('Project name:', 'My new project');
+    if (title === null) return;
+    const description = prompt('Short project description:', 'Describe what it does, what you built, and the tools you used.');
+    if (description === null) return;
+    const grid = $('#projectsGrid');
+    if (!grid) { showToast('Projects section is not available.'); return; }
+    grid.appendChild(makeProject(title.trim() || 'My new project', description.trim() || 'Add a short project description.', $$('.project-card', grid).length + 1));
+    savePortfolio(); showToast('Project added — edit the text and click its image to add a cover.');
+  });
+  $('#addSection').addEventListener('click', () => {
+    const title = prompt('Section heading:', 'A little more about me');
+    if (title === null) return;
+    const body = prompt('Write a few lines for this section:', 'Add a new detail, achievement, interest, or anything you want people to know.');
+    if (body === null) return;
+    const section = document.createElement('section');
+    section.className = 'section section-edit-row reveal visible';
+    section.innerHTML = `<div class="section-controls" data-editor-only><button type="button" data-hide-section>Hide/show section</button><button type="button" data-remove-section>Remove section</button></div><div class="section-heading"><div><div class="kicker" data-editable>Custom section</div><h2 data-editable>${escapeHtml(title.trim() || 'Custom section')}</h2></div><p data-editable>${escapeHtml(body.trim() || 'Write your description here.')}</p></div><div class="about-grid"><div class="about-note"><div class="mini-tag" data-editable>More about me</div><h3 data-editable>Another piece<br>of my story.</h3><p data-editable>Click any outlined text to personalize this card.</p></div><div class="about-details"><article class="detail-card"><div class="detail-icon">✳</div><h3 data-editable>Add a detail</h3><p data-editable>Describe an interest, award, goal, or experience.</p></article><article class="detail-card"><div class="detail-icon">↗</div><h3 data-editable>Make it yours</h3><p data-editable>Edit this text or remove this card from the exported HTML later.</p></article></div></div>`;
+    const contact = $('#contact');
+    portfolio.insertBefore(section, contact || null);
+    section.scrollIntoView({behavior:'smooth',block:'start'});
+    savePortfolio(); showToast('Section added. Click its text to edit.');
+  });
+
+  $('#saveJson').addEventListener('click', () => {
+    savePortfolio();
+    const data = {format:'FolioStudioBackup',version:1,theme:activeTheme,html:portfolio.innerHTML,exportedAt:new Date().toISOString()};
+    downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'my-portfolio-backup.json');
+    showToast('Portfolio backup downloaded.');
+  });
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1200);
+  }
+  $('#exportSite').addEventListener('click', () => {
+    // Prepare a clean, standalone version of the portfolio without editing controls.
+    const cloned = document.documentElement.cloneNode(true);
+    const clonePortfolio = $('#portfolio', cloned);
+    if (!clonePortfolio) return;
+    $$('[data-editor-only]', cloned).forEach(el => el.remove());
+    $$('.edit-hint, .toast, #imagePicker', cloned).forEach(el => el.remove());
+    // Remove toolbar and editor scripts: the output is a regular portfolio website.
+    $('.studio-bar', cloned)?.remove();
+    $$('script', cloned).forEach(el => el.remove());
+    $$('[contenteditable]', cloned).forEach(el => el.removeAttribute('contenteditable'));
+    $$('[data-editable]', cloned).forEach(el => el.removeAttribute('data-editable'));
+    $$('[data-uploadable]', cloned).forEach(el => { el.removeAttribute('data-uploadable'); el.removeAttribute('data-image-name'); el.removeAttribute('role'); el.removeAttribute('tabindex'); });
+    $$('[data-remove-project],[data-remove-section],[data-hide-section]', cloned).forEach(el => el.remove());
+    $$('.section-controls,.card-controls', cloned).forEach(el => el.remove());
+    $$('.hidden-section', cloned).forEach(el => { if (el.dataset.hidden === 'true') el.remove(); else el.classList.remove('hidden-section'); });
+    $$('.edit-controls', cloned).forEach(el => el.remove());
+    $$('[data-hidden="false"]', cloned).forEach(el => el.removeAttribute('data-hidden'));
+    cloned.querySelector('title').textContent = 'My Portfolio';
+    const html = '<!doctype html>\n' + cloned.outerHTML;
+    downloadBlob(new Blob([html],{type:'text/html;charset=utf-8'}),'my-portfolio.html');
+    showToast('Standalone portfolio exported!');
+  });
+
+  // If the user edits the email text in the hero/profile, the actual contact address can be changed here.
+  // Profile URL links are starter placeholders; update the hrefs when you add your real accounts.
+  loadSaved();
+  // After restoring saved HTML, re-enable hidden/visible contenteditable state consistently.
+  $$('.reveal', portfolio).forEach(el => el.classList.add('visible'));
+  applyTheme(activeTheme);
+  setEditing(false);
+})();
+</script>
+</body>
+</html>
